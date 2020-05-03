@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Coding Projects - Ben Taub Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Coding</a>
+					</header>
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul class="links">
+						<li><a href="index.html">About</a></li>
+						<li><a href="mmt.html">Multimedia Thinking</a></li>
+						<li class = active><a href="coding.html">Coding</a></li>
+						<li><a href="podcast.html">Podcasting</a></li>
+						<li><a href="game.html">Game Design</a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<h1>Coding</h1>
+									<p>These are Digital Studies related coding assingments I had done for my Computational Thinking course.</p>
+								</header>
+								<!-- Preformatted Code -->
+									<h2>Python Project</h2>
+									<pre><code>i = 0;
+
+import random
+import threading
+from igdb_api_python.igdb import igdb ##getting access to the igdb video game database
+											
+igdb = igdb("\\\SECRET\\\") ##key for using api
+											
+											 
+def mixer(game_name, misconduct):
+	"""This is an internal function that will be used to actually mix up the game titles and the misconducts that the bigger function
+	for this assignment will use."""
+	game_array = game_name.split(" ") ##splits the game name into an array
+	if len(game_array) == 1: ##if the game title only has 1 word in it, it puts the misconduct at the end of it
+		game_array.append(misconduct)
+	else:    
+		placement = random.randint(0, len(game_array) - 1) ##picks a random word in the game title for the misconduct to replace
+		game_array[placement] = misconduct ##puts the misconduct in the randomly assigned place
+	mixed_game_name = " ".join(game_array) ##joins the list back into a string and saves it as a variable
+	print(mixed_game_name)
+
+def bot():
+	"""The actual "twitter bot" that will use the mixer function above after grabbing a random game from the video game database
+	and a random misconduct from a list and putting them into the mixer function. """
+	random_game = random.randint(1, 109335) ##grabs a random int
+	result = igdb.games(random_game) ##uses the random in as an id for a game
+	for game in result.body: ##this is how the api works to grab a game title, not fully sure how it works under the hood
+		chosen_game = game["name"] ##stores the game name as it's own variable
+	misconduct_list = ["Overwork", "No Severence Pay", "Losing Sleep", "No Time For Family", "Pizza As Payment", 
+		"Test Monkey", "Under Paid", "No Healthcare", "100 Hour Weeks", "Lay Off", "Crunch", "Abuse of Power"] ##pretty self explanatory
+	chosen_misconduct = misconduct_list[random.randint(0, len(misconduct_list) - 1)] ##chooses something form the list at random
+	return mixer(chosen_game, chosen_misconduct) ##calls the mixer function defined above
+print("This code will mix various game titles with various misconducts that the video game industry has done to take advantage of its employees: \n")
+def cant_stop_wont_stop():
+	"""Has the code run every 10 seconds so it'll produce a new combination indefinitely 
+	until you manually stop the code """
+	threading.Timer(10.0, cant_stop_wont_stop).start() ##creates the timer itself so this function will be called every 10 seconds
+	bot() ##the function I need the timer for
+
+cant_stop_wont_stop()
+</code></pre>
+						<h3>README</h3>
+							<div class="box">
+								<p>My project is a bot that every 10 seconds will produce a mix of a video game title and something the video game industry has done to exploit
+										its employees. The code works with 3 functions: the bot() function, which grabs a random game from the igdb api and a random entry from my own
+										list of misconducts and plugs those into the mixer() which randomly places the misconduct into the game title, and finally the 
+										cant_stop_wont_stop() function which acts as a timer to keep calling the bot() function every 10 seconds. You simply run the program and it
+										will keep producing title mixes, until you kill the program.
+										
+										<p>The reason I decided to create this program was because I do believe it is an issue that should be addressed, especially with some of the 
+										recent stories that have come out about this topic. 1 of those stories is the recent shutting down of Telltale Game's studios leaving 
+										nearly 300 emplyees without jobs, severence pay, and only about a week of health care remaining. Another of these stories came from 
+										Rockstar Studios, where in an interview with some of higher ups in the studio about their upcoming game, said that their empolyees were working 
+										100 hour work weeks to meet deadlines. These are just some of many of the many things the games' industry has done to exploit its employees.
+										As someone who would like to begin working on game development as a career this is a topic I care about, as hearing these things make me 
+										second guess my ambitions, even though it is the industry that should change, not my ambitions.</p>
+										
+										<p> I was fairly well versed in Python when creating this project so I didn't run into too many complications aside from using the api, as I had
+										never used one before. It took a decent amount of reading the documentation and looking up how things like "api keys" worked before I could
+										use it to fit my needs. After that it was basically just a matter of how I wanted to divide up the functions and what I could do with what 
+										I knew at the time. I started with the mixer() function as the only thing it would need was 2 strings and some basic string maniuplation that
+										I was familiar with, and wouldn't need the api stuff to make this function. Once I got the api stuff figured out I made the bot() function
+										and had it use the mixer() function I had created earlier. All that was left was to have the function run indefinetly rather than have to call
+										it for each title mix, so I made the cant_stop_wont_stop() function as a basic timer so the user wouldn't have to keep calling the function
+										to get new title mixes. Overall I was fairly comfortable with what I was programming, but I still learned something new in the case of the api
+										stuff I used in this project. </p>
+
+										<p>UPDATE: Due to the IGDB API completely overhauling how it works, this code no longer functions and I would have to completely
+											rewrite everything I had done, so unfortunately for this project, only the code itself will be viewable.
+										</p>
+							</div>
+							<h2>p5 Javascript Project</h2>
+							<iframe src="https://editor.p5js.org/b.taub1224/embed/dwmGnExDL"
+							style="width: 100%; height: 1000px; overflow: hidden;"  scrolling="no" frameborder="0"></iframe>
+							<h3>The Code</h3>
+							<pre><code>i = 0;
+var img;
+var chosen_color;
+function preload(){ //loads image into variable
+	img = loadImage("coloring_page.png");
+}
+
+function setup() {
+	// put setup code here
+	createCanvas(1000, 1000);    
+	image(img, 0, 0); //puts image onto canvas
+	chosen_color = color(255, 0, 0); //sets initial color to red. To be changed by key presses later.
+	
+}
+
+
+function draw() { //
+	stroke(chosen_color);
+	if(mouseIsPressed) { //if mouse is pressed down, it will make a line of the desired color
+	line(mouseX, mouseY, pmouseX, pmouseY);
+	}
+}
+
+function keyPressed(){
+	/*
+	Determines if a key dedicated to a color is pressed, and if so, switches to that color
+	*/
+	if(key === 'r'){ //red
+	chosen_color = color(255, 0, 0);
+	} else if(key === 'y'){ //yellow
+	chosen_color = color(255, 255, 0);
+	} else if(key === 'b'){ //blue
+	chosen_color = color(0, 0, 255);
+	} else if(key === 'g'){ //green
+	chosen_color = color(0, 255, 0);
+	} else if(key === 'p'){ //purple
+	chosen_color = color(153, 0, 153);
+	} else if(key === 'w'){ //brown
+	chosen_color = color(102, 51, 0);
+	} else if(key === 'o'){ //orange
+	chosen_color = color(255, 153, 51);
+	}
+	return false;
+}
+</code></pre>
+							<h3>README</h3>
+							<div class="box">
+								<p>This code is a basic coloring page that allows you to change to multiple colors with several different keyboard keys.
+									As this is using the p5 library this is clearly not all the code that is used to make this possible, but the code above
+									is just what I had written to make this, with a lot of library code running behind it. The program itself is actually embedded
+									into the website, so please feel free to give it a try!
+								</p>
+							</div>
+</section>
+
+</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<section>
+						<form method="post" action="mailto:b.taub1224@gmail.com" enctype="text/plain">
+							<div class="fields">
+								<div class="field">
+									<label for="name">Name</label>
+									<input type="text" name="name" id="name" />
+								</div>
+								<div class="field">
+									<label for="email">Email</label>
+									<input type="text" name="email" id="email" />
+								</div>
+								<div class="field">
+									<label for="message">Message</label>
+									<textarea name="message" id="message" rows="3"></textarea>
+								</div>
+							</div>
+							<ul class="actions">
+								<li><input type="submit" value="Send Message" /></li>
+							</ul>
+						</form>
+					</section>
+					<section class="split contact">
+						<section>
+							<h3>Email</h3>
+							<p><a href="#">b.taub1224@gmail.com</a></p>
+						</section>
+						
+					</section>
+				</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
